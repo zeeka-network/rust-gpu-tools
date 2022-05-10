@@ -361,6 +361,18 @@ impl KernelArgument for u32 {
     }
 }
 
+impl KernelArgument for [u64; 4] {
+    fn push(&self, kernel: &mut Kernel) {
+        kernel.builder.set_arg(self);
+    }
+}
+
+impl KernelArgument for u8 {
+    fn push(&self, kernel: &mut Kernel) {
+        kernel.builder.set_arg(self);
+    }
+}
+
 impl<T> KernelArgument for LocalBuffer<T> {
     fn push(&self, kernel: &mut Kernel) {
         kernel

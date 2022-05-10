@@ -322,6 +322,18 @@ impl KernelArgument for u32 {
     }
 }
 
+impl KernelArgument for u8 {
+    fn as_c_void(&self) -> *mut c_void {
+        self as *const _ as _
+    }
+}
+
+impl KernelArgument for [u64; 4] {
+    fn as_c_void(&self) -> *mut c_void {
+        self as *const _ as _
+    }
+}
+
 impl<T> KernelArgument for LocalBuffer<T> {
     // This is a hack: on CUDA kernels, you cannot have `__shared__` (`__local` in OpenCL lingo)
     // kernel parameters. Hence, just pass on an arbirtary valid pointer. It won't be used, so it
